@@ -13,9 +13,14 @@
         const apiUrl = "https://ipapi.co/json/";
 
         // جلب بيانات الموقع
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
+        async function fetchLocation() {
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
                 // عرض البيانات في الصفحة
                 document.getElementById("location").innerHTML = `
                     <p><strong>IP:</strong> ${data.ip}</p>
@@ -25,12 +30,15 @@
                     <p><strong>Latitude:</strong> ${data.latitude}</p>
                     <p><strong>Longitude:</strong> ${data.longitude}</p>
                 `;
-            })
-            .catch(error => {
+            } catch (error) {
                 document.getElementById("location").innerHTML = `
                     <p>Error fetching location data: ${error.message}</p>
                 `;
-            });
+            }
+        }
+
+        // استدعاء الوظيفة لجلب البيانات
+        fetchLocation();
     </script>
 </body>
 </html>
