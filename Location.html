@@ -7,19 +7,20 @@
 </head>
 <body>
     <h1>IP Location Finder</h1>
-    <div id="location">
-        Loading location data...
-    </div>
+    <div id="location">Loading location data...</div>
     <script>
-        // استخدم خدمة ipapi
+        // رابط API لتحديد الموقع بواسطة IP
         const apiUrl = "https://ipapi.co/json/";
 
+        // جلب بيانات الموقع
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                // عرض البيانات في الصفحة
                 document.getElementById("location").innerHTML = `
                     <p><strong>IP:</strong> ${data.ip}</p>
                     <p><strong>City:</strong> ${data.city}</p>
+                    <p><strong>Region:</strong> ${data.region}</p>
                     <p><strong>Country:</strong> ${data.country_name}</p>
                     <p><strong>Latitude:</strong> ${data.latitude}</p>
                     <p><strong>Longitude:</strong> ${data.longitude}</p>
