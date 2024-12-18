@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Location Finder</title>
+</head>
+<body>
+    <h1>IP Location Finder</h1>
+    <div id="location">
+        Loading location data...
+    </div>
+    <script>
+        // استخدم خدمة ipapi
+        const apiUrl = "https://ipapi.co/json/";
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("location").innerHTML = `
+                    <p><strong>IP:</strong> ${data.ip}</p>
+                    <p><strong>City:</strong> ${data.city}</p>
+                    <p><strong>Country:</strong> ${data.country_name}</p>
+                    <p><strong>Latitude:</strong> ${data.latitude}</p>
+                    <p><strong>Longitude:</strong> ${data.longitude}</p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById("location").innerHTML = `
+                    <p>Error fetching location data: ${error.message}</p>
+                `;
+            });
+    </script>
+</body>
+</html>
